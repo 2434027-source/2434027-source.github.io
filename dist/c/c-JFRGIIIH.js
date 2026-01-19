@@ -1,6 +1,6 @@
 import{d as h,e as P}from"https://st-p.rmcdn1.net/22ac7430/dist/c/c-X344ZJVU.js";import{a as f,b as M}from"https://st-p.rmcdn1.net/22ac7430/dist/c/c-T6CUF6UD.js";import{q as p,r as y}from"https://st-p.rmcdn1.net/22ac7430/dist/c/c-BDDRUFNV.js";import{k as d,l as E}from"https://st-p.rmcdn1.net/22ac7430/dist/c/c-WFE34W5R.js";import{a as m,b as C}from"https://st-p.rmcdn1.net/22ac7430/dist/c/c-2WAT354M.js";import{b as S}from"https://st-p.rmcdn1.net/22ac7430/dist/c/c-ETMQC36Q.js";import{a as u,d as w}from"https://st-p.rmcdn1.net/22ac7430/dist/c/c-DSUHDIPY.js";var l,b,F,A=u(()=>{"use strict";l=w(S());E();P();y();b={GLOBAL_UNIQUE_KEYS:d.globalKeys,GLOBAL_UNIQUE_KEY_PREFIX:d.globalPrefix,GLOBAL_PRIVATE_KEYS:d.globalPrivateKeys,FADE_DURATION:200,getUniqueValue:function(a,i,e){let n=i[this.GLOBAL_UNIQUE_KEY_PREFIX+a]||[],t=l.default.findWhere(n,{pid:e});return t=t||l.default.findWhere(n,{pid:"default"})||{},t.value===void 0?i[a]:t.value},resetGlobalData:function(a){a.setInViewports(()=>Object.fromEntries(d.globalPrivateKeys.map(i=>[i,[]])))},isGlobalKey:function(a){return this.GLOBAL_UNIQUE_KEYS.indexOf(a)!==-1},getGlobalPrefixedKey:function(a){return this.isGlobalKey(a)?this.GLOBAL_UNIQUE_KEY_PREFIX+a:null},fillUniqueAttributeSets:function(a,i,e){let n={};return i.is_global?((0,l.default)(this.GLOBAL_UNIQUE_KEYS).each(function(t){if(!l.default.has(a,t)||a[t]===void 0)return;let o=i[this.GLOBAL_UNIQUE_KEY_PREFIX+t]||[],c=l.default.findWhere(o,{pid:e}),r=l.default.findWhere(o,{pid:"default"});c?c.value=a[t]:o.push({pid:e,value:a[t]}),r||o.push({pid:"default",value:i[t]===void 0?null:i[t]}),n[this.GLOBAL_UNIQUE_KEY_PREFIX+t]=o}.bind(this)),n):a},ensurePageDefRecord:function(a){let i={};return(0,l.default)(this.GLOBAL_UNIQUE_KEYS).each(function(e){let n=a[this.GLOBAL_UNIQUE_KEY_PREFIX+e]||[];l.default.findWhere(n,{pid:"default"})||n.push({pid:"default",value:a[e]===void 0?null:a[e]}),i[this.GLOBAL_UNIQUE_KEY_PREFIX+e]=n}.bind(this)),i},fillUniqueValues:function(a,i){for(let e of this.GLOBAL_UNIQUE_KEYS)if(a[`${this.GLOBAL_UNIQUE_KEY_PREFIX}${e}`]){let n=this.getUniqueValue(e,a,i);typeof n<"u"&&(a[e]=n)}},isHidden:function(a,i,e){return this.getUniqueValue("hidden",a,i)||!e&&h.hasExpired(a)},show:function(a,i){i=!!i,a.$el.toggleClass("no-transition",i),a.$el.addClass("above-all-fade"),(!a.$el.hasClass("fade-in")||i)&&(a.cancelHide&&a.cancelHide(),a.show(),l.default.delay(function(){a.$el.addClass("fade-in")},50))},hide:function(a,i){return i=!!i,a.$el.addClass("above-all-fade"),new window.Promise(function(e){a.$el.hasClass("fade-in")||i?(a.$el.toggleClass("no-transition",i),a.$el.removeClass("fade-in"),i?(a.hide(),e()):a.cancelHide=p.waitForTransitionEnd(a.$el,b.FADE_DURATION,"opacity",function(){a.hide(),e()})):e()})}},F=b});var g,K,I=u(()=>{"use strict";C();g=(a,i=[])=>{let e={};return Object.keys(a).forEach(n=>{let t=[...i,n].join("."),o=a[n];["string","number","boolean"].includes(typeof o)?e[t]=a[n]:typeof o=="object"&&o!==null&&(e={...e,...g(o,[...i,n])})}),e},K=(a,i)=>{if(!(window.RM.common.isDownloadedSource&&!window.RM.common.homepageRewrite)){let n={...g(i),userAgent:window.navigator.userAgent,"event.timingMs":Date.now()-window.performance.timing.navigationStart,"event.timestamp":Date.now()};m.post("/api/proxy/honeycomb",{event:n,dataset:a})}}});function G(a,i,e,n){e&&(a.preventDefault?a.preventDefault():event.returnValue=!1);var t=a.detail||-a.wheelDelta/40;t*=19,typeof n=="number"&&!isNaN(n)&&(t*=n),i.scrollBy?i.scrollBy(0,t):i.scrollTop+=t}var s,B,Y,L=u(()=>{"use strict";s=["DOMMouseScroll","mousewheel"];B=function(a,i,e,n){a||(a=document),i||(i=window),typeof e!="boolean"&&(e=!0);var t,o,c,r=function(v){v=v||window.event,G(v,i,e,n)};return(t=a.addEventListener)?(t.call(a,s[0],r,!1),t.call(a,s[1],r,!1)):(t=a.attachEvent)&&t.call(a,"on"+s[1],r),(o=a.removeEventListener)?c=function(){o.call(a,s[0],r,!1),o.call(a,s[1],r,!1)}:(o=a.detachEvent)&&(c=function(){o.call(a,"on"+s[1],r)}),{restore:c}},Y=B});M();var O={"template-viewer-cart-sidebar":f`
   <div id="cart-sidebar" class="cart-sidebar<% if (isViewer) { %> cart-in-viewer<% } %><% if (isMobile) { %> cart-is-mobile<% } %>">
-    <div class="close-button" role="button" aria-label="Закрыть корзину" tabindex="0" data-alt="Close cart" data-alt-pos="bottom" data-alt-offset="9">
+    <div class="close-button" data-alt="Close cart" data-alt-pos="bottom" data-alt-offset="9">
       <div class="line-1"></div>
       <div class="line-3"></div>
     </div>
@@ -31,7 +31,7 @@ import{d as h,e as P}from"https://st-p.rmcdn1.net/22ac7430/dist/c/c-X344ZJVU.js"
 
           <div class="sidebar-body">
             <div class="cart-items-list"></div>
-            <div class="sidebar-btn сheck-out-btn" role="button" aria-label="Оформить заказ" tabindex="0" data-tab="tab-inputs" data-testid="cart-sidebar-checkout-button">
+            <div class="sidebar-btn сheck-out-btn" data-tab="tab-inputs" data-testid="cart-sidebar-checkout-button">
               <input
                 type="text"
                 class="cart-text-input cart-checkout-input"
@@ -44,7 +44,7 @@ import{d as h,e as P}from"https://st-p.rmcdn1.net/22ac7430/dist/c/c-X344ZJVU.js"
                 spellcheck="false"
                 <% if (isViewer) { %>readonly<% } %>
               />
-              <img class="btn-icon-right svg" src="<%= imgPublicPath %>img/viewer/cart-sidebar/sidebar-right-arrow.svg?c" alt="Перейти далее" />
+              <img class="btn-icon-right svg" src="<%= imgPublicPath %>img/viewer/cart-sidebar/sidebar-right-arrow.svg?c" />
             </div>
             <div class="empty-cart">
               <div class="empty-cart-title">
@@ -74,12 +74,12 @@ import{d as h,e as P}from"https://st-p.rmcdn1.net/22ac7430/dist/c/c-X344ZJVU.js"
 
         <div class="cart-sidebar-tab tab-inputs">
           <div class="sidebar-header">
-            <div class="sidebar-btn go-back" role="button" aria-label="Вернуться назад" tabindex="0" data-tab="tab-items">
-                <img class="btn-icon-center svg" src="<%= imgPublicPath %>img/viewer/cart-sidebar/sidebar-left-arrow.svg?c" alt="Вернуться назад" />
+            <div class="sidebar-btn go-back" data-tab="tab-items">
+                <img class="btn-icon-center svg" src="<%= imgPublicPath %>img/viewer/cart-sidebar/sidebar-left-arrow.svg?c" />
             </div>
-            <div class="sidebar-btn go-forward" role="button" aria-label="Перейти к сводке" tabindex="0" data-tab="tab-order">
+            <div class="sidebar-btn go-forward" data-tab="tab-order">
               Summary
-              <img class="btn-icon-right svg" src="<%= imgPublicPath %>img/viewer/cart-sidebar/sidebar-right-arrow.svg?c" alt="Перейти далее" />
+              <img class="btn-icon-right svg" src="<%= imgPublicPath %>img/viewer/cart-sidebar/sidebar-right-arrow.svg?c" />
             </div>
           </div>
           <div class="sidebar-body">
@@ -133,12 +133,12 @@ import{d as h,e as P}from"https://st-p.rmcdn1.net/22ac7430/dist/c/c-X344ZJVU.js"
 
         <div class="cart-sidebar-tab tab-order">
           <div class="sidebar-header">
-            <div class="sidebar-btn go-back" role="button" aria-label="Вернуться к вводу данных" tabindex="0" data-tab="tab-inputs">
-                <img class="btn-icon-center svg" src="<%= imgPublicPath %>img/viewer/cart-sidebar/sidebar-left-arrow.svg?c" alt="Вернуться назад" />
+            <div class="sidebar-btn go-back" data-tab="tab-inputs">
+                <img class="btn-icon-center svg" src="<%= imgPublicPath %>img/viewer/cart-sidebar/sidebar-left-arrow.svg?c" />
             </div>
-            <div class="sidebar-btn go-forward cart-pay-btn hidden" role="button" aria-label="Перейти к оплате" tabindex="0" data-tab="tab-checkout">
+            <div class="sidebar-btn go-forward cart-pay-btn hidden" data-tab="tab-checkout">
               Pay
-              <img class="btn-icon-right svg" src="<%= imgPublicPath %>img/viewer/cart-sidebar/sidebar-right-arrow.svg?c" alt="Перейти далее" />
+              <img class="btn-icon-right svg" src="<%= imgPublicPath %>img/viewer/cart-sidebar/sidebar-right-arrow.svg?c" />
             </div>
             <div class="preloader">
               <div class="svg-wrap">
@@ -206,8 +206,8 @@ import{d as h,e as P}from"https://st-p.rmcdn1.net/22ac7430/dist/c/c-X344ZJVU.js"
 
         <div class="cart-sidebar-tab tab-checkout">
           <div class="sidebar-header">
-            <div class="sidebar-btn go-back" role="button" aria-label="Вернуться к заказу" tabindex="0" data-tab="tab-order">
-                <img class="btn-icon-center svg" src="<%= imgPublicPath %>img/viewer/cart-sidebar/sidebar-left-arrow.svg?c" alt="Вернуться назад" />
+            <div class="sidebar-btn go-back" data-tab="tab-order">
+                <img class="btn-icon-center svg" src="<%= imgPublicPath %>img/viewer/cart-sidebar/sidebar-left-arrow.svg?c" />
             </div>
             <div class="preloader">
               <div class="svg-wrap">
