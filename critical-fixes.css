@@ -1,5 +1,58 @@
 /* Критичные исправления CSS для UX/UI */
 
+/* Оптимизация анимаций при скролле на мобильных устройствах */
+@media (max-width: 768px) {
+  /* Оптимизация для элементов с анимациями */
+  .animation-container,
+  [class*="animation"],
+  [style*="offset-path"] {
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+  }
+  
+  /* Улучшение производительности scroll */
+  html {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: auto;
+  }
+  
+  body {
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Оптимизация для элементов с transform */
+  [style*="transform"] {
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+}
+
+/* Использование GPU для анимаций на touch устройствах */
+@media (hover: none) and (pointer: coarse) {
+  /* Ускорение GPU для всех анимируемых элементов */
+  .animation-container,
+  [class*="animate"],
+  [style*="transform"] {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    will-change: transform;
+  }
+  
+  /* Отключение плавного скролла на мобильных */
+  html {
+    scroll-behavior: auto !important;
+  }
+  
+  /* Оптимизация scroll performance */
+  * {
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
 /* Визуальные индикаторы фокуса для доступности */
 a:focus-visible,
 button:focus-visible,
