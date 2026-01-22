@@ -1,0 +1,10 @@
+<!-- Регистрация Service Worker для PWA -->
+<script>
+(function(){
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js').catch(function(err) {
+      console.warn('Service Worker registration failed:', err);
+    });
+  }
+})();
+</script>

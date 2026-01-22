@@ -1,0 +1,60 @@
+/* Визуальные индикаторы фокуса для доступности */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+[role="button"]:focus-visible,
+[tabindex="0"]:focus-visible {
+  outline: 2px solid #0080FF;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Улучшение hover состояний */
+a:hover,
+button:hover,
+[role="button"]:hover {
+  opacity: 0.85;
+  transition: opacity 0.2s ease;
+}
+
+/* Состояния активных элементов */
+a:active,
+button:active,
+[role="button"]:active {
+  opacity: 0.7;
+  transform: scale(0.98);
+  transition: transform 0.1s ease, opacity 0.1s ease;
+}
+
+/* Оптимизация для touch устройств */
+@media (hover: none) and (pointer: coarse) {
+  a,
+  button,
+  [role="button"],
+  [tabindex="0"] {
+    min-height: 44px;
+    min-width: 44px;
+    touch-action: manipulation;
+  }
+}
+
+/* Предпочтения для уменьшенной анимации */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Улучшение видимости для высокого контраста */
+@media (prefers-contrast: high) {
+  a,
+  button {
+    border: 1px solid currentColor;
+  }
+}
