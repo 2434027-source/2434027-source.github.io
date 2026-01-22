@@ -140,7 +140,7 @@ import{a as qt}from"https://st-p.rmcdn1.net/22ac7430/dist/c/c-ZYD3LSFA.js";impor
 								var screenshot = getScreenshot(page._id);
 							%>
 								<div class="page" data-id="<%=page._id%>" data-num="<%=page.num%>" data-src="<%= screenshot.src %>" style="width:<%=frameWidth%>px;height:<%=frameHeight%>px;<%=direction%>:<%=offset%>px" role="button" aria-label="Page <%=page.num%>">
-									<img class="screenshot" src="<%=stub%>" style="width:<%= screenshot.width %>px; height:<%= screenshot.height %>px; margin: auto; top: 0; bottom: 0; left: 0; right: 0;" />
+									<img class="screenshot" src="<%=stub%>" alt="<%= page.title || 'Скриншот страницы ' + (index + 1) %>" style="width:<%= screenshot.width %>px; height:<%= screenshot.height %>px; margin: auto; top: 0; bottom: 0; left: 0; right: 0;" />
 									<% if (page.unauthorized) { %>
 									<div class="private-page"></div>
 									<% } %>

@@ -1,3 +1,13 @@
+# Robots.txt for unitedcryptoboys.online
+# Last updated: 2026-01-15
+
+# Allow all search engines to crawl the site
 User-agent: *
 Allow: /
+
+# Disallow access to admin or internal directories (if any)
+# Disallow: /admin/
+# Disallow: /private/
+
+# Sitemap location
 Sitemap: https://unitedcryptoboys.online/sitemap.xml

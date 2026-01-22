@@ -81,7 +81,7 @@ import{a as i,b as m}from"https://st-p.rmcdn1.net/22ac7430/dist/c/c-T6CUF6UD.js"
 				<div class="center-cell">
 					<div class="panel">
 
-						<%=(close_button ? '<button class="close-button"><svg width="12" height="12" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" role="img" class="css-4v4w9u-r e1pz65mu0"><path d="M5.95 4.536L9.778.707a1 1 0 011.414 1.414L7.364 5.95l3.828 3.828a1 1 0 01-1.414 1.414L5.95 7.364l-3.83 3.828A1 1 0 01.707 9.778L4.536 5.95.707 2.12A1 1 0 112.121.707L5.95 4.536z" fill="currentColor" fill-rule="evenodd"></path></svg></button>' : '')%>
+						<%=(close_button ? '<button class="close-button" aria-label="Закрыть"><svg width="12" height="12" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" role="img" aria-hidden="true" class="css-4v4w9u-r e1pz65mu0"><path d="M5.95 4.536L9.778.707a1 1 0 011.414 1.414L7.364 5.95l3.828 3.828a1 1 0 01-1.414 1.414L5.95 7.364l-3.83 3.828A1 1 0 01.707 9.778L4.536 5.95.707 2.12A1 1 0 112.121.707L5.95 4.536z" fill="currentColor" fill-rule="evenodd"></path></svg></button>' : '')%>
 
 						<%=(header ? '<div class="header">' + header + '</div>' : '')%>
 
