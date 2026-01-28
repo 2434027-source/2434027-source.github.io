@@ -1,8 +1,8 @@
 // Service Worker для United Crypto Boys
 // Агрессивное кэширование для предотвращения повторных загрузок
-const CACHE_NAME = 'ucb-v2';
-const STATIC_CACHE = 'ucb-static-v2';
-const IMAGE_CACHE = 'ucb-images-v2';
+const CACHE_NAME = 'ucb-v3';
+const STATIC_CACHE = 'ucb-static-v3';
+const IMAGE_CACHE = 'ucb-images-v3';
 
 // Статические ресурсы для предзагрузки
 const STATIC_URLS = [
@@ -11,7 +11,15 @@ const STATIC_URLS = [
   '/dist/viewer.css',
   '/dist/viewer.js',
   '/dist/config.js',
-  '/server-data.json'
+  '/server-data.json',
+  '/manifest.json',
+  '/favicon.png',
+  '/img/664b1fa9319de2006fe1d050/favicon-16.png',
+  '/img/664b1fa9319de2006fe1d050/favicon-32.png',
+  '/img/664b1fa9319de2006fe1d050/favicon-72.png',
+  '/img/664b1fa9319de2006fe1d050/favicon-144.png',
+  '/img/664b1fa9319de2006fe1d050/favicon-192.png',
+  '/img/664b1fa9319de2006fe1d050/favicon-512.png'
 ];
 
 // Типы файлов для кэширования

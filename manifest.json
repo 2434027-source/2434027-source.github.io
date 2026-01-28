@@ -1,0 +1,43 @@
+{
+  "name": "United Crypto Boys",
+  "short_name": "UCB",
+  "description": "UCB - это символ нашего крипто-братства",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#009345",
+  "icons": [
+    {
+      "src": "/img/664b1fa9319de2006fe1d050/favicon-16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "/img/664b1fa9319de2006fe1d050/favicon-32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/img/664b1fa9319de2006fe1d050/favicon-72.png",
+      "sizes": "72x72",
+      "type": "image/png"
+    },
+    {
+      "src": "/img/664b1fa9319de2006fe1d050/favicon-144.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "/img/664b1fa9319de2006fe1d050/favicon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/img/664b1fa9319de2006fe1d050/favicon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
