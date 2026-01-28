@@ -1,4 +1,4 @@
-﻿{
+{
     "mags":  {
                  "mag":  {
                              "isProjectEmailPrivate":  {
@@ -12055,11 +12055,11 @@
                    "action_end":  "2014-08-27 00:00 GMT+0400",
                    "RECAPTCHA_SITEKEY":  "6Ld0r_cZAAAAAFKkweesCokUIuWgfYUIORFV0Xfj",
                    "favicon":  {
-                                   "default":  "/u1179532223/5339356/dist/img/favicons/favicon.ico",
-                                   "touch":  "/u1179532223/5339356/dist/img/favicons/apple-touch-icon-precomposed.png",
-                                   "touch_144":  "/u1179532223/5339356/dist/img/favicons/apple-touch-icon-144x144-precomposed.png",
-                                   "touch_114":  "/u1179532223/5339356/dist/img/favicons/apple-touch-icon-114x114-precomposed.png",
-                                   "touch_72":  "/u1179532223/5339356/dist/img/favicons/apple-touch-icon-72x72-precomposed.png"
+                                   "default":  "/dist/img/favicons/favicon.ico",
+                                   "touch":  "/dist/img/favicons/apple-touch-icon-precomposed.png",
+                                   "touch_144":  "/dist/img/favicons/apple-touch-icon-144x144-precomposed.png",
+                                   "touch_114":  "/dist/img/favicons/apple-touch-icon-114x114-precomposed.png",
+                                   "touch_72":  "/dist/img/favicons/apple-touch-icon-72x72-precomposed.png"
                                },
                    "GA_ID":  "UA-110571495-2",
                    "GA_ID_PUBLIC":  "UA-33458420-1",

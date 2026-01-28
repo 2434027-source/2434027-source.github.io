@@ -1,4 +1,4 @@
-﻿import{a as i,b as m}from"/u1179532223/5339356/dist/c/c-Q7L6TC6B.js";import{a as g}from"/u1179532223/5339356/dist/c/c-MTEWFZUN.js";import{b as s,c as y}from"/u1179532223/5339356/dist/c/c-OHFRQC2M.js";import{a as h}from"/u1179532223/5339356/dist/c/c-UEIEIK52.js";import{b as d}from"/u1179532223/5339356/dist/c/c-2IW6BEWA.js";import{a,d as r}from"/u1179532223/5339356/dist/c/c-TAHBUCPV.js";var c,n=a(()=>{"use strict";m();c={"template-common-alert":i`
+﻿import{a as i,b as m}from"/dist/c/c-Q7L6TC6B.js";import{a as g}from"/dist/c/c-MTEWFZUN.js";import{b as s,c as y}from"/dist/c/c-OHFRQC2M.js";import{a as h}from"/dist/c/c-UEIEIK52.js";import{b as d}from"/dist/c/c-2IW6BEWA.js";import{a,d as r}from"/dist/c/c-TAHBUCPV.js";var c,n=a(()=>{"use strict";m();c={"template-common-alert":i`
 	<%
 		var categories = {
 			'type-duplicate':				'category-upgrade',
@@ -45,7 +45,7 @@
 			'type-custom-sharing':			'Please upgrade your account<br/>to customize social sharing info.<br/><a href=' + pricingUrl + ' class="learn-more">See the pricing</a>.',
 			'type-code-injection':			'Please upgrade your account to<br/>make custom code work after<br/>you publish the project.<br/><a href=' + pricingUrl + ' class="learn-more">See the pricing</a>.',
 			'type-widget-shots':			'Please upgrade your account to<br/>make Shots widget work after<br/>you publish the project.<br/><a href=' + pricingUrl + ' class="learn-more">See the pricing</a>.',
-			'type-browsers':				'Sorry, our Editor doesn’t support Internet Explorer. This may change in the future, but for now please use Chrome, Firefox or Safari.',
+			'type-browsers':				'Sorry, our Editor doesn�t support Internet Explorer. This may change in the future, but for now please use Chrome, Firefox or Safari.',
 			'type-browsers-viewer':			'This site can\'t be displayed in Internet Explorer. Please switch to <a href="https://support.apple.com/en-jo/HT204416">Safari</a>, <a href="https://www.google.com/chrome/">Google Chrome</a>, <a href="https://www.mozilla.org/en-US/firefox/new/">Firefox</a>, or <a href="https://www.microsoft.com/en-us/windows/microsoft-edge">Microsoft Edge</a>.',
 			'type-switch-desktop-create':	'To create a project, please use your laptop or desktop computer.',
 			'type-switch-desktop-continue':	'To continue, please use your laptop or desktop computer.',
@@ -69,7 +69,7 @@
 		var close_button = opts.close_button
 
 		if (opts.is_contributor) {
-			text = 'Please upgrade owner’s account<br/>to be able to use this feature.'
+			text = 'Please upgrade owner�s account<br/>to be able to use this feature.'
 			button = '<a href="mailto:' + opts.owner_email + '" class="contact-link">Contact owner</a><div class="cancel-wrapper">' + (['type-code-injection', 'type-widget-shots'].includes(opts.type) ? 'or <span class="button cancel" data-type="skip">Skip</span>' : '<span class="button cancel">Cancel</span>') + '</div>'
 		}
 
