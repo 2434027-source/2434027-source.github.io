@@ -178,4 +178,269 @@ button:active,
     });
   }
 })();
+</script>
+
+<!-- Система кэширования ресурсов для предотвращения повторной загрузки -->
+<script>
+(function() {
+  'use strict';
+  
+  // Глобальный кэш загруженных ресурсов в памяти
+  window.__resourceCache = window.__resourceCache || {
+    images: new Map(),
+    svgs: new Map(),
+    loaded: new Set()
+  };
+  
+  var cache = window.__resourceCache;
+  
+  // Предзагрузка изображения в память
+  function preloadImage(src) {
+    if (!src || cache.loaded.has(src)) return Promise.resolve();
+    
+    return new Promise(function(resolve) {
+      var img = new Image();
+      img.onload = function() {
+        cache.images.set(src, img);
+        cache.loaded.add(src);
+        resolve();
+      };
+      img.onerror = resolve;
+      img.src = src;
+    });
+  }
+  
+  // Собрать все URL изображений со страницы
+  function collectImageUrls() {
+    var urls = new Set();
+    
+    // Изображения в img тегах
+    document.querySelectorAll('img[src]').forEach(function(img) {
+      if (img.src) urls.add(img.src);
+    });
+    
+    // srcset атрибуты
+    document.querySelectorAll('img[srcset], source[srcset]').forEach(function(el) {
+      var srcset = el.getAttribute('srcset');
+      if (srcset) {
+        srcset.split(',').forEach(function(src) {
+          var url = src.trim().split(' ')[0];
+          if (url) urls.add(url);
+        });
+      }
+    });
+    
+    // Background images в стилях
+    document.querySelectorAll('[style*="background"]').forEach(function(el) {
+      var style = el.getAttribute('style');
+      var matches = style.match(/url\(['"]?([^'")\s]+)['"]?\)/g);
+      if (matches) {
+        matches.forEach(function(match) {
+          var url = match.replace(/url\(['"]?/, '').replace(/['"]?\)/, '');
+          if (url && !url.startsWith('data:')) urls.add(url);
+        });
+      }
+    });
+    
+    // SVG use элементы
+    document.querySelectorAll('use[href], use[xlink\\:href]').forEach(function(el) {
+      var href = el.getAttribute('href') || el.getAttribute('xlink:href');
+      if (href && !href.startsWith('#')) urls.add(href);
+    });
+    
+    // data-src атрибуты (lazy loading)
+    document.querySelectorAll('[data-src]').forEach(function(el) {
+      var src = el.getAttribute('data-src');
+      if (src) urls.add(src);
+    });
+    
+    return Array.from(urls);
+  }
+  
+  // Предзагрузка всех изображений при загрузке страницы
+  function preloadAllImages() {
+    var urls = collectImageUrls();
+    
+    // Отправляем URL-ы в Service Worker для кэширования
+    if (navigator.serviceWorker && navigator.serviceWorker.controller) {
+      navigator.serviceWorker.controller.postMessage({
+        type: 'CACHE_URLS',
+        urls: urls
+      });
+    }
+    
+    // Параллельная предзагрузка в память браузера
+    var promises = urls.map(preloadImage);
+    return Promise.all(promises);
+  }
+  
+  // Наблюдатель за новыми изображениями в DOM
+  var observer = new MutationObserver(function(mutations) {
+    var newUrls = [];
+    
+    mutations.forEach(function(mutation) {
+      mutation.addedNodes.forEach(function(node) {
+        if (node.nodeType !== 1) return;
+        
+        // Новые img элементы
+        if (node.tagName === 'IMG' && node.src && !cache.loaded.has(node.src)) {
+          newUrls.push(node.src);
+        }
+        
+        // Изображения внутри добавленных элементов
+        if (node.querySelectorAll) {
+          node.querySelectorAll('img[src]').forEach(function(img) {
+            if (img.src && !cache.loaded.has(img.src)) {
+              newUrls.push(img.src);
+            }
+          });
+        }
+      });
+      
+      // Измененные src атрибуты
+      if (mutation.type === 'attributes' && mutation.attributeName === 'src') {
+        var src = mutation.target.src || mutation.target.getAttribute('src');
+        if (src && !cache.loaded.has(src)) {
+          newUrls.push(src);
+        }
+      }
+    });
+    
+    // Предзагрузка новых изображений
+    if (newUrls.length > 0) {
+      newUrls.forEach(preloadImage);
+    }
+  });
+  
+  // Запуск при загрузке DOM
+  function init() {
+    // Запуск предзагрузки
+    preloadAllImages();
+    
+    // Наблюдение за изменениями DOM
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      attributeFilter: ['src', 'data-src', 'srcset']
+    });
+    
+    // Повторная предзагрузка после полной загрузки страницы
+    window.addEventListener('load', function() {
+      setTimeout(preloadAllImages, 1000);
+      setTimeout(preloadAllImages, 3000);
+    });
+  }
+  
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
+
+<!-- CSS для предотвращения выгрузки изображений -->
+<style>
+/* Предотвращение выгрузки изображений из памяти */
+img, svg, [style*="background-image"] {
+  content-visibility: visible !important;
+  contain-intrinsic-size: auto;
+}
+
+/* Отключение lazy loading для уже загруженных элементов */
+img.loaded, svg.loaded {
+  loading: eager !important;
+}
+
+/* Оптимизация рендеринга для анимированных элементов */
+[class*="animate"], [class*="animation"], [data-animation] {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+}
+
+/* Предотвращение мерцания при скролле */
+.rm-widget, .widget, [class*="widget"] {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Сохранение изображений видимыми */
+.rm-picture img, .rm-slideshow img, .picture-widget img {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Оптимизация для мобильных устройств */
+@media (max-width: 768px) {
+  img, svg {
+    image-rendering: -webkit-optimize-contrast;
+  }
+}
+</style>
+
+<!-- Перехват lazy loading для предотвращения выгрузки -->
+<script>
+(function() {
+  'use strict';
+  
+  // Отслеживание загруженных элементов
+  var loadedElements = new WeakSet();
+  
+  // Перехват IntersectionObserver для предотвращения выгрузки
+  var OriginalIntersectionObserver = window.IntersectionObserver;
+  
+  window.IntersectionObserver = function(callback, options) {
+    var wrappedCallback = function(entries, observer) {
+      entries.forEach(function(entry) {
+        // Если элемент уже был загружен, всегда считаем его видимым
+        if (loadedElements.has(entry.target)) {
+          // Создаем модифицированный entry
+          var modifiedEntry = Object.create(entry);
+          Object.defineProperty(modifiedEntry, 'isIntersecting', {
+            get: function() { return true; }
+          });
+          Object.defineProperty(modifiedEntry, 'intersectionRatio', {
+            get: function() { return 1; }
+          });
+          entry = modifiedEntry;
+        }
+        
+        // Если элемент становится видимым, помечаем его как загруженный
+        if (entry.isIntersecting) {
+          loadedElements.add(entry.target);
+        }
+      });
+      
+      callback(entries, observer);
+    };
+    
+    return new OriginalIntersectionObserver(wrappedCallback, options);
+  };
+  
+  // Копируем статические свойства
+  window.IntersectionObserver.prototype = OriginalIntersectionObserver.prototype;
+  
+  // Функция для пометки всех видимых изображений как загруженных
+  function markVisibleImagesAsLoaded() {
+    document.querySelectorAll('img, svg, [style*="background"]').forEach(function(el) {
+      loadedElements.add(el);
+      el.classList.add('loaded');
+    });
+  }
+  
+  // Запуск после загрузки
+  window.addEventListener('load', function() {
+    setTimeout(markVisibleImagesAsLoaded, 500);
+    setTimeout(markVisibleImagesAsLoaded, 2000);
+    setTimeout(markVisibleImagesAsLoaded, 5000);
+  });
+  
+  // Также при скролле помечаем новые элементы
+  var scrollTimeout;
+  window.addEventListener('scroll', function() {
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(markVisibleImagesAsLoaded, 100);
+  }, { passive: true });
+})();
 </script><div id="root"><style> html, body { width: 100%; height: 100%; } body { margin: 0; padding: 0; font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, Arial, sans-serif; color: #282828; -webkit-tap-highlight-color: rgba(0,0,0,0); -webkit-font-smoothing: antialiased; } * ::selection { background-color: #A2A2A2; } a, button, label, div, span, input, *:hover { -webkit-tap-highlight-color: rgba(0,0,0,0); } h1, h2, h3, h4, h5 { margin: 0; } </style></div><div id="mags"></div><div id="service-pages"></div><div class="popups"></div><div id="tmp"></div><div id="fake" style="position:fixed;opacity:1"></div><script src="/dist/viewer.js" type="module"></script></body></html>

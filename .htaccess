@@ -11,7 +11,7 @@ AddType application/font-woff woff
 AddType video/webm webm
 
 RewriteEngine On
-RewriteBase 
+RewriteBase /
 RewriteCond %{QUERY_STRING} _escaped_fragment_
 RewriteCond %{REQUEST_URI} !^/(dist|img|snippets|videos)
 RewriteRule ^(/)?(.+)/$ snippets/$2.html [L]
