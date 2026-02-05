@@ -1,0 +1,1 @@
+import{D as a,k as l}from"https://st-p.rmcdn1.net/72b5a69b/dist/c/c-62MRRUEA.js";import{a as t}from"https://st-p.rmcdn1.net/72b5a69b/dist/c/c-HLKMEZ7X.js";function n(e,r={}){return window.requestIdleCallback?window.requestIdleCallback(e,r):l(e)}var d=t(()=>{"use strict";a()});export{n as a,d as b};
