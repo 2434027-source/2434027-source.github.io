@@ -1,4 +1,122 @@
 <div id="mags"><article class="page page-with-fixeds-desktop" style="overflow: hidden; height: 4122px; width: 1024px; position: relative;">
+
+    <style>
+      /* Low-end режим: отключаем тяжёлые анимации на слабых устройствах */
+      html.low-end * {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+      }
+
+      /* Ленивые виджеты/iframe Readymag */
+      .ucb-lazy-widget {
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+      }
+
+      .ucb-lazy-widget.ucb-lazy-visible {
+        opacity: 1;
+        pointer-events: auto;
+      }
+    </style>
+
+    <script>
+      (function () {
+        try {
+          var cores = navigator.hardwareConcurrency || 4;
+          var mem = navigator.deviceMemory || 4;
+          var lowEnd = cores <= 2 || mem <= 2;
+          if (lowEnd) {
+            document.documentElement.classList.add('low-end');
+          }
+        } catch (e) {}
+      })();
+    </script>
+
+    <script>
+      // Авто-lazy для картинок, которые далеко ниже первого экрана
+      document.addEventListener('DOMContentLoaded', function () {
+        try {
+          var vh = window.innerHeight || 800;
+          var imgs = document.querySelectorAll('img:not([loading])');
+
+          imgs.forEach(function (img) {
+            var rect = img.getBoundingClientRect();
+            if (rect.top > vh * 1.2) {
+              img.setAttribute('loading', 'lazy');
+            }
+          });
+        } catch (e) {}
+      });
+    </script>
+
+    <script>
+      // Ленивое проявление тяжёлых iframe/виджетов Readymag
+      (function () {
+        function initLazyWidgets() {
+          try {
+            var vh = window.innerHeight || 800;
+            var widgets = document.querySelectorAll('.rmwidget.widget-iframe.code-injection');
+            var lazyList = [];
+
+            widgets.forEach(function (w) {
+              var rect = w.getBoundingClientRect();
+              if (rect.top > vh * 1.3) {
+                w.classList.add('ucb-lazy-widget');
+                w.setAttribute('data-ucb-lazy', 'pending');
+
+                var iframe = w.querySelector('iframe');
+                if (iframe && !iframe.hasAttribute('loading')) {
+                  iframe.setAttribute('loading', 'lazy');
+                }
+
+                lazyList.push(w);
+              }
+            });
+
+            if (!('IntersectionObserver' in window) || lazyList.length === 0) {
+              lazyList.forEach(function (w) {
+                w.classList.add('ucb-lazy-visible');
+                w.removeAttribute('data-ucb-lazy');
+              });
+              return;
+            }
+
+            var io = new IntersectionObserver(function (entries) {
+              entries.forEach(function (entry) {
+                var el = entry.target;
+                if (!entry.isIntersecting) return;
+                if (el.getAttribute('data-ucb-lazy') !== 'pending') return;
+
+                el.classList.add('ucb-lazy-visible');
+                el.removeAttribute('data-ucb-lazy');
+                io.unobserve(el);
+              });
+            }, {
+              root: null,
+              rootMargin: '0px 0px 200px 0px',
+              threshold: 0.1
+            });
+
+            lazyList.forEach(function (w) {
+              io.observe(w);
+            });
+          } catch (e) {
+            if (window.console && console.warn) {
+              console.warn('ucb lazy widgets error', e);
+            }
+          }
+        }
+
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', initLazyWidgets);
+        } else {
+          initLazyWidgets();
+        }
+      })();
+    </script>
+
     <div id="page-2-password-container" class="polyfill-sticky"></div>
     <div class="page-fixed-bg-container polyfill-sticky"><div class="rmwidget widget-background" style="background-color: #000000">
 
